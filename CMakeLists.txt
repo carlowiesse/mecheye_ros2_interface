@@ -20,6 +20,8 @@ find_package(image_transport REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(pcl_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
 find_package(tf2 REQUIRED)
 
 pkg_check_modules(JSONCPP REQUIRED jsoncpp)
@@ -84,6 +86,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES
   std_msgs
   sensor_msgs
+  pcl_msgs
 )
 
 include_directories(
@@ -105,6 +108,8 @@ ament_target_dependencies(start
     rclcpp
     std_msgs
     sensor_msgs
+    pcl_msgs
+    pcl_conversions
     tf2
     rosidl_default_generators
 )
@@ -135,4 +140,11 @@ ament_export_dependencies(
     tf2
     rosidl_default_generators
 )
+
+# Install launch files.
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
 ament_package()
