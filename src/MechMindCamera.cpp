@@ -36,23 +36,23 @@ MechMindCamera::MechMindCamera()
     pub_pcl_color = node->create_publisher<sensor_msgs::msg::PointCloud2>("/mechmind/color_point_cloud", 1);
     pub_camera_info = node->create_publisher<sensor_msgs::msg::CameraInfo>("/mechmind/camera_info", 1);
 
-    if (!findAndConnect(device))
-        return;
+    // if (!findAndConnect(device))
+    //     return;
 
     // Uncomment the following lines to connect a camera with ip inside .launch file
 
-    // mmind::api::ErrorStatus status;
-    // mmind::api::MechEyeDeviceInfo info;
-    // info.firmwareVersion = "1.6.0";
-    // info.ipAddress = camera_ip;
-    // info.port = 5577;
-    // status = device.connect(info);
-    // if (!status.isOK())
-    // {
-    //     showError(status);
-    //     return;
-    // }
-    // std::cout << "Connected to the Mech-Eye device successfully." << std::endl;
+    mmind::api::ErrorStatus status;
+    mmind::api::MechEyeDeviceInfo info;
+    info.firmwareVersion = "2.1.0";
+    info.ipAddress = camera_ip;
+    info.port = 5577;
+    status = device.connect(info);
+    if (!status.isOK())
+    {
+        showError(status);
+        return;
+    }
+    std::cout << "Connected to the Mech-Eye device successfully." << std::endl;
 
     mmind::api::MechEyeDeviceInfo deviceInfo;
     showError(device.getDeviceInfo(deviceInfo));
